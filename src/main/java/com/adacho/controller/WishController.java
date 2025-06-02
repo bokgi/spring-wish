@@ -114,7 +114,7 @@ public class WishController {
 		}	
 	}
 	
-	@PostMapping("/share")
+	@GetMapping("/share")
 	public ShareDto viewForOthers(@RequestParam String token){
 		
 		ShareDto shareDto = new ShareDto();
