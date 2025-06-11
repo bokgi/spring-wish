@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class ResponseDto {
 	
-	private Integer id;
+	private Integer restaurantId;
 	
 	private String categoryName;
 	

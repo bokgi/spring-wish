@@ -45,7 +45,7 @@ public class WishListService {
         wish.setRating(dto.getRating());
         wish.setImgUrl(dto.getImgUrl());
         wish.setPhone(dto.getPhone());
-        wish.setRestaurantId(dto.getId());
+        wish.setRestaurantId(dto.getRestaurantId());
 
         wishListRepository.save(wish);
     }
