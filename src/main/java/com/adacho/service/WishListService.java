@@ -58,20 +58,14 @@ public class WishListService {
 
 	public void updateWish(String userId, DescriptionDto descriptionDto) {
 
-		try {
-			Optional<WishList> optionalWish = wishListRepository.findByUserIdAndRestaurantId(userId,
-					descriptionDto.getRestaurantId());
-			if (optionalWish.isPresent()) {
-				WishList wish = optionalWish.get();
-				wish.setDescription(descriptionDto.getDescription());
-				wishListRepository.save(wish);
-			}
-
-			System.out.println("수정 성공");
-		} catch (Exception e) {
-			System.err.println("수정 실패: " + e.getMessage());
-			e.printStackTrace();
+		Optional<WishList> optionalWish = wishListRepository.findByUserIdAndRestaurantId(userId,
+				descriptionDto.getRestaurantId());
+		if (optionalWish.isPresent()) {
+			WishList wish = optionalWish.get();
+			wish.setDescription(descriptionDto.getDescription());
+			wishListRepository.save(wish);
 		}
+
 
 	}
 

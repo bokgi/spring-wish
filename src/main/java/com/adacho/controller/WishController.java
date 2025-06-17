@@ -108,17 +108,17 @@ public class WishController {
 	}
 	
 	@PostMapping("/description")
-	public void updateDescription(@RequestHeader("Authorization") String authHeader, @RequestBody DescriptionDto descriptionDto) {
+	public ResponseEntity<?> updateDescription(@RequestHeader("Authorization") String authHeader, @RequestBody DescriptionDto descriptionDto) {
 		
-		try {
-			
+		try {		
     		String token = authHeader.replace("Bearer ", "");
     		String userId = jwtUtil.getUserIdFromToken(token);
     		System.out.println("WishController userid: " + userId);
     		wishListService.updateWish(userId, descriptionDto);
-    		
+    		return ResponseEntity.ok(new AddDeleteUpdateResponseDto("수정을 완료했습니다!"));
 		}
 		catch (Exception e) {
+			System.out.println("!!수정하는 중 예외가 발생했어요!! ");
 			e.printStackTrace();
 		}	
 	}
