@@ -120,6 +120,8 @@ public class WishController {
 		catch (Exception e) {
 			System.out.println("!!수정하는 중 예외가 발생했어요!! ");
 			e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	                .body("서버 오류가 발생했습니다.");
 		}	
 	}
 	
