@@ -2,6 +2,7 @@ package com.adacho.controller;
 
 import java.util.List;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.CannotCreateTransactionException;
@@ -13,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.adacho.dto.AddDeleteUpdateResponseDto;
 import com.adacho.dto.DescriptionDto;
 import com.adacho.dto.ResponseDto;
 import com.adacho.dto.ShareDto;
-import com.adacho.dto.AddDeleteUpdateResponseDto;
 import com.adacho.entity.WishList;
 import com.adacho.service.WishListService;
 import com.adacho.util.JwtUtil;
@@ -117,7 +118,7 @@ public class WishController {
     		wishListService.updateWish(userId, descriptionDto);
     		return ResponseEntity.ok(new AddDeleteUpdateResponseDto("수정을 완료했습니다!"));
 		}
-		catch (Exception e) {
+		catch (DataAccessException e) {
 			System.out.println("!!수정하는 중 예외가 발생했어요!! ");
 			e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
