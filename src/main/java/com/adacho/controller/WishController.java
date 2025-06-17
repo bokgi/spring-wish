@@ -53,8 +53,10 @@ public class WishController {
         	
             return ResponseEntity.ok(new addResponseDto("찜 목록에 추가했습니다!"));
             
-        } catch (DataAccessResourceFailureException e) {
-
+        } catch (Exception e) {
+        	System.out.println("***");
+        	e.printStackTrace();
+        	System.out.println("***");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 	                .body("서버 오류가 발생했습니다.");
             
