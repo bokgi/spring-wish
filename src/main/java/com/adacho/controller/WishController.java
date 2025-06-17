@@ -81,6 +81,7 @@ public class WishController {
 			return wishList;
 		}
 		catch (Exception e) {
+			System.out.println("!!찜 목록을 불러오지 못했습니다!!");
 			e.printStackTrace();
 			return List.of();
 		}
