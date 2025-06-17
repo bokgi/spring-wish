@@ -137,7 +137,7 @@ public class WishController {
 			
 			return ResponseEntity.ok(shareDto);
 			
-		}catch (Exception e){
+		}catch (DataAccessException e){
 			System.out.println("!!찜 목록을 불러오지 못했습니다!!");
 			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("서버 오류가 발생했습니다.");
