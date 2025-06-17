@@ -5,10 +5,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class addResponseDto {
+public class AddDeleteUpdateResponseDto {
 	private String msg;
 	
-	public addResponseDto(String msg) {
+	public AddDeleteUpdateResponseDto(String msg) {
 		this.msg = msg;
 	}
 }

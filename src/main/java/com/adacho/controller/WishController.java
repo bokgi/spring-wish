@@ -2,9 +2,9 @@ package com.adacho.controller;
 
 import java.util.List;
 
-import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.CannotCreateTransactionException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.adacho.dto.DescriptionDto;
 import com.adacho.dto.ResponseDto;
 import com.adacho.dto.ShareDto;
-import com.adacho.dto.addResponseDto;
+import com.adacho.dto.AddDeleteUpdateResponseDto;
 import com.adacho.entity.WishList;
 import com.adacho.service.WishListService;
 import com.adacho.util.JwtUtil;
@@ -51,7 +51,7 @@ public class WishController {
         	
         	wishListService.saveWish(userId, responseDto);
         	
-            return ResponseEntity.ok(new addResponseDto("찜 목록에 추가했습니다!"));
+            return ResponseEntity.ok(new AddDeleteUpdateResponseDto("찜 목록에 추가했습니다!"));
             
         } catch (Exception e) {
         	System.out.println("***");
@@ -87,7 +87,7 @@ public class WishController {
 	}
 	
 	@PostMapping("/delete")
-	public String deleteToList(@RequestHeader("Authorization") String authHeader, @RequestParam int id) {
+	public ResponseEntity<?> deleteToList(@RequestHeader("Authorization") String authHeader, @RequestParam int id) {
 		
 		try {
 			
@@ -97,12 +97,13 @@ public class WishController {
     		
     		wishListService.deleteWish(userId, id);
     		
-			return "찜 삭제 성공";
+    		return ResponseEntity.ok(new AddDeleteUpdateResponseDto("찜 목록에서 삭제했습니다!"));
 		}
-		catch (Exception e) {
+		catch (CannotCreateTransactionException e) {
 			System.out.println("!!찜 삭제 중 예외가 발생했어요!! ");
 			e.printStackTrace();
-			return "찜 삭제 실패";
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	                .body("서버 오류가 발생했습니다.");
 		}
 	}
 	
