@@ -126,12 +126,14 @@ public class WishController {
 	public ResponseEntity<?> viewForOthers(@RequestParam String token){
 		
 		try {
+			System.out.println("ok 1");
 			ShareDto shareDto = new ShareDto();
 			String userId = jwtUtil.getUserIdFromToken(token);
+			
 			String userName = wishListService.getUserName(userId);
-			
+			System.out.println("ok 2");
 			List<WishList> wishList = wishListService.findWishList(userId);	
-			
+			System.out.println("ok 3");
 			shareDto.setWishList(wishList);
 			shareDto.setUserName(userName);
 			
