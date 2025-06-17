@@ -2,6 +2,9 @@ package com.adacho.controller;
 
 import java.util.List;
 
+import org.springframework.dao.DataAccessResourceFailureException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.adacho.dto.DescriptionDto;
 import com.adacho.dto.ResponseDto;
 import com.adacho.dto.ShareDto;
+import com.adacho.dto.addResponseDto;
 import com.adacho.entity.WishList;
 import com.adacho.service.WishListService;
 import com.adacho.util.JwtUtil;
@@ -34,7 +38,7 @@ public class WishController {
 	}
 	
 	@PostMapping("/add")
-	public String addToList (@RequestHeader("Authorization") String authHeader, @RequestParam int id) {
+	public ResponseEntity<?> addToList (@RequestHeader("Authorization") String authHeader, @RequestParam int id) {
 		
         try {
     		String token = authHeader.replace("Bearer ", "");
@@ -47,11 +51,12 @@ public class WishController {
         	
         	wishListService.saveWish(userId, responseDto);
         	
-            return "찜 목록에 추가했습니다!";
+            return ResponseEntity.ok(new addResponseDto("찜 목록에 추가했습니다!"));
             
-        } catch (Exception e) {
-        	e.printStackTrace();
-            return "찜 목록에 추가하지 못했습니다!";
+        } catch (DataAccessResourceFailureException e) {
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	                .body("서버 오류가 발생했습니다.");
             
         }
 	}
