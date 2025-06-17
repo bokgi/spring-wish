@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 
 import com.adacho.dto.AddDeleteUpdateResponseDto;
 import com.adacho.dto.DescriptionDto;
@@ -54,7 +55,7 @@ public class WishController {
         	
             return ResponseEntity.ok(new AddDeleteUpdateResponseDto("찜 목록에 추가했습니다!"));
             
-        } catch (Exception e) {
+        } catch (WebClientResponseException e) {
         	System.out.println("***");
         	e.printStackTrace();
         	System.out.println("***");
@@ -80,7 +81,7 @@ public class WishController {
 			}
 			return wishList;
 		}
-		catch (Exception e) {
+		catch (DataAccessException e) {
 			System.out.println("!!찜 목록을 불러오지 못했습니다!!");
 			e.printStackTrace();
 			return List.of();
