@@ -100,6 +100,7 @@ public class WishController {
 			return "찜 삭제 성공";
 		}
 		catch (Exception e) {
+			System.out.println("!!찜 삭제 중 예외가 발생했어요!! ");
 			e.printStackTrace();
 			return "찜 삭제 실패";
 		}
