@@ -47,7 +47,7 @@ jobs:
         username: ${{ secrets.SERVER_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
-          docker stop wish-app || true
-          docker rm wish-app || true
-          docker load < /home/ubuntu/bokgi/wish-app.tar
-          docker run -d --name wish-app -p 8082:8082 wish-app
+          sudo docker stop wish-app || true
+          sudo docker rm wish-app || true
+          sudo docker load < /home/ubuntu/bokgi/wish-app.tar
+          sudo docker run -d --name wish-app -p 8082:8082 wish-app
