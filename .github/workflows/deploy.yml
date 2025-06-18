@@ -20,6 +20,15 @@ jobs:
 
     - name: Build with Maven
       run: mvn clean package -DskipTests
+      
+    - name: Set up Docker
+      uses: docker/setup-buildx-action@v3
+      
+    - name: Build Docker image
+      run: docker build -t wish-app .
+
+    - name: Save Docker image to tar file
+      run: docker save wish-app > wish-app.tar
 
     - name: Copy JAR to Server via SSH
       uses: appleboy/scp-action@v0.1.4
@@ -38,4 +47,7 @@ jobs:
         username: ${{ secrets.SERVER_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
-          bash /home/ubuntu/bokgi/start-wish.sh
+          docker stop wish-app || true
+          docker rm wish-app || true
+          docker load < /home/ubuntu/bokgi/wish-app.tar
+          docker run -d --name wish-app -p 8082:8082 wish-app
