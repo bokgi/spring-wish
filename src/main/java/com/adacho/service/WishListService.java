@@ -16,8 +16,8 @@ import com.adacho.repository.WishListRepository;
 public class WishListService {
 
 	private WishListRepository wishListRepository;
-	private final WebClient webClient = WebClient.create("http://localhost:8081");
-	private final WebClient webClient2 = WebClient.create("http://localhost:8080");
+	private final WebClient webClient = WebClient.create("http://nlp-app:8081");
+	private final WebClient webClient2 = WebClient.create("http://login-app:8080");
 
 	public WishListService(WishListRepository wishListRepository) {
 		this.wishListRepository = wishListRepository;
