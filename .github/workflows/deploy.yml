@@ -52,4 +52,4 @@ jobs:
           sudo docker stop wish-app || true
           sudo docker rm wish-app || true
           sudo docker load < /home/ubuntu/bokgi/wish-app.tar
-          sudo docker run -d --name wish-app --network my-network -p 8082:8082 wish-app
+          sudo docker run -d --name wish-app --network my-network -p 8082:8082 -e OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }} wish-app
